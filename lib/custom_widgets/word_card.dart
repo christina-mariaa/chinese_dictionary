@@ -5,6 +5,8 @@ class WordCard extends StatelessWidget {
   final String mainText;
   final String pinyin;
   final String meaning;
+  final bool isChar;
+  final bool isRadical;
   final Function(BuildContext, String)? onWordTap;
   final Function(BuildContext, String)? onLongWordTap;
 
@@ -13,6 +15,8 @@ class WordCard extends StatelessWidget {
     required this.mainText,
     required this.pinyin,
     required this.meaning,
+    required this.isChar,
+    this.isRadical = false,
     this.onWordTap,
     this.onLongWordTap,
   });
@@ -30,6 +34,17 @@ class WordCard extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(0.h, 5.h, 15.h, 5.h),
       child: Row(
         children: [
+          isChar
+          ? Container(
+              height: 50.h,
+              width: 20.w,
+              padding: EdgeInsets.only(left: 2.w),
+              child:
+              isRadical
+                  ? Icon(Icons.key, size: 15.w,)
+                  : null,
+            )
+          : Container(),
           GestureDetector(
             onLongPress: () {
               if (onLongWordTap != null) {

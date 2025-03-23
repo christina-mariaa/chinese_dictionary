@@ -19,6 +19,7 @@ class _AddCharacterScreenState extends State<AddCharacterScreen> {
   final TextEditingController pinyinController = TextEditingController();
   final TextEditingController meaningController = TextEditingController();
   final CharacterService _characterService = CharacterService();
+  bool isRadical = false;
 
   void _handleSubmit() async {
     final String mainText = mainTextController.text.trim();
@@ -31,7 +32,7 @@ class _AddCharacterScreenState extends State<AddCharacterScreen> {
       );
       return;
     }
-    success = await _characterService.addCharacter(symbol: mainText, pinyin: pinyin, meaning: meaning);
+    success = await _characterService.addCharacter(symbol: mainText, pinyin: pinyin, meaning: meaning, isRadical: isRadical);
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Иероглиф $mainText добавлен'))
@@ -62,6 +63,19 @@ class _AddCharacterScreenState extends State<AddCharacterScreen> {
           child: Column(
             children: [
               CommonFieldsBlock(mainTextController: mainTextController, pinyinController: pinyinController, meaningController: meaningController, label: "Иероглиф"),
+              CheckboxListTile(
+                value: isRadical,
+                onChanged: (bool? value) {
+                  setState(() {
+                    isRadical = value!;
+                  });
+                },
+                activeColor:Colors.indigoAccent,
+                title: Text('Является ключом', style: TextStyle(fontSize: 15.sp),),
+                controlAffinity: ListTileControlAffinity.leading,
+                contentPadding: EdgeInsets.zero,
+              ),
+              SizedBox(height: 50.h,),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.indigoAccent[100],

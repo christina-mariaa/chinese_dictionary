@@ -25,7 +25,7 @@ class CommonFieldsBlock extends StatelessWidget {
         _textFormField(label: 'Пиньинь', hint: 'Введите пиньинь', controller: pinyinController),
         SizedBox(height: 20.h,),
         _textFormField(label: 'Перевод', hint: 'Введите перевод', controller: meaningController),
-        SizedBox(height: 50.h,),
+        SizedBox(height: 20.h,),
       ],
     );
   }

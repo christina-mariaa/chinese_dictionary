@@ -14,7 +14,6 @@ class WordsPage extends StatefulWidget {
 }
 
 class _WordsPageState extends State<WordsPage> {
-
   final CharacterService _characterService = CharacterService();
   final WordService _wordService = WordService();
 
@@ -31,7 +30,14 @@ class _WordsPageState extends State<WordsPage> {
               itemCount: chars.length,
               itemBuilder: (context, index) {
                 var char = chars[index];
-                return WordCard(mainText: char.text, pinyin: char.pinyin!, meaning: char.meaning!, onWordTap: null, onLongWordTap: _showBigModal,);
+                return WordCard(
+                  mainText: char.text,
+                  pinyin: char.pinyin!,
+                  meaning: char.meaning!,
+                  isChar: true,
+                  isRadical: char.isRadical,
+                  onWordTap: null,
+                  onLongWordTap: _showBigModal);
               }),
           );
         });
@@ -43,7 +49,7 @@ class _WordsPageState extends State<WordsPage> {
         builder: (BuildContext context) {
           return Center(
             child: SimpleDialog(
-              titlePadding: EdgeInsets.all(0),
+              titlePadding: const EdgeInsets.all(0),
               alignment: Alignment.center,
               backgroundColor: Colors.white,
               title: Center(child: Text(symbol)),
@@ -67,7 +73,12 @@ class _WordsPageState extends State<WordsPage> {
               itemCount: words.length,
               itemBuilder: (context, index) {
                 final word = words[index];
-                return WordCard(mainText: word.text, pinyin: word.pinyin!, meaning: word.meaning ?? "000", onWordTap: _showLinkedModal);
+                return WordCard(
+                    mainText: word.text,
+                    pinyin: word.pinyin!,
+                    meaning: word.meaning!,
+                    isChar: false,
+                    onWordTap: _showLinkedModal);
               });
           },
         ),
